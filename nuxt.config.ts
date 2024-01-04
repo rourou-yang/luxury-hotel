@@ -2,6 +2,7 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import vitePluginStylusAlias from 'vite-plugin-stylus-alias'
 import app from './app.config'
+import path from 'path'
 
 export default defineNuxtConfig({
   app,
@@ -24,17 +25,22 @@ export default defineNuxtConfig({
       },
     },
     plugins: [
-      vitePluginStylusAlias()  // 解决vite中Stylus无法使用@别名的问题
-    ]
-    // resolve: {
-    //   alias: {
-    //     // 调整别名，避免与 Stylus 中的命名冲突
-    //     '@': '/src',
-    //   },
-    // },
-  },
-  css: [
-    '~/assets/common/index.styl',
-  ],
+      vitePluginStylusAlias(),  // 解决vite中Stylus无法使用@别名的问题
+    ],
+    css: {
+      /**
+       * 全域引入檔案
+       * @see https://github.com/vitejs/vite/issues/832#issuecomment-763311431
+       * @see https://stackoverflow.com/a/64504683/2252696
+       * @see https://stackoverflow.com/a/74307563/2252696
+       */
+      preprocessorOptions: {
+        stylus: {
+          imports: [
+            path.resolve(__dirname, "./assets/common/index.styl")
+          ],
+        }
+      }
+    },
   devtools: { enabled: true },
 })
