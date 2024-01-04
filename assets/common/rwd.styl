@@ -1,0 +1,28 @@
+// Responsive
+sm = 616px
+md = 976px 
+lg = 1280px
+xl = 1920px 
+
+over(breakpoint)
+  condition = 'screen and (min-width: %s)' % breakpoint
+  @media condition
+    {block}
+
+under(breakpoint)
+  condition = 'screen and (max-width: %s)' % (breakpoint - 1px)
+  @media condition
+    {block}
+
+between(min, max)
+  condition = 'screen and (min-width: %s) and (max-width: %s)' % (min max - 1px)
+  @media condition
+    {block}
+
+/* example: 
++over(md)
+  max-width 100%
+*/
+
+$desktop = $onlyPC = 'screen and (min-width: 976px)'
+$mobile = $onlyMobile = 'screen and (max-width: 975px)'
