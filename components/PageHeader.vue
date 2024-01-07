@@ -1,7 +1,9 @@
 <template>
   <div>
     <header>
-      header
+      <nuxt-link to="/" class="logo">
+        <img src="~/assets/images/logo.svg" alt="享樂酒店">
+      </nuxt-link>
     </header>
   </div>
 </template>
@@ -10,6 +12,15 @@
 
 <style scoped lang="stylus">
 header
-  height 30px
-  background-color #eee
+  display flex
+  align-items center
+  justify-content space-between
+  padding 24px 80px
+  height 120px
+  background-color $bg-color
+  +under(md)
+    height 72px
+  .logo 
+    display block
+    width 196px
 </style>
