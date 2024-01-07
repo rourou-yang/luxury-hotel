@@ -16,7 +16,7 @@
             <v-text-field variant="solo" hide-details />
           </div>
           <div class="info-field d-flex justify-space-between">
-            <v-checkbox v-model="remember" label="記住帳號" color="#BF9D7D" hide-details></v-checkbox>
+            <v-checkbox v-model="rememberMe" color="#BF9D7D" label="記住帳號" hide-details></v-checkbox>
             <nuxt-link to="" class="color-primary text-decoration-underline">忘記密碼？</nuxt-link>
           </div>
         </div>
@@ -33,28 +33,33 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 
-const remember = ref(true)
+const rememberMe = ref(true)
 </script>
 
 <style scoped lang="stylus">
 .member-layout
-  display flex
   background $bg-color
   min-height 100vh
-  .pic-palace, .interface
-    flex 0 0 50%
+  +over(md)
+    display flex
+    .pic-palace, .interface
+      flex 0 0 50%
   .pic-palace
     width 100%
     background-image url('assets/images/bg-login.jpg')
     background-size cover
     background-position center center
     background-repeat no-repeat
+    +under(md)
+      display none
 .interface
   position relative
   display flex
   align-items center
   justify-content center
+  height 100%
   .img-wave
     position absolute
     width 100%
