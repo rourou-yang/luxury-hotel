@@ -70,6 +70,9 @@ const rememberMe = ref(true)
     background-size cover
     background-position center center
     background-repeat no-repeat
+    +under(md)
+      top 32px
+      // height 54px
   .member-board
     color #fff
   .info-field + .info-field
