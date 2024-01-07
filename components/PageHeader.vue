@@ -16,11 +16,14 @@ header
   align-items center
   justify-content space-between
   padding 24px 80px
-  height 120px
   background-color $bg-color
   +under(md)
-    height 72px
+    padding 16px 12px
   .logo 
     display block
-    width 196px
+    height 72px
+    +under(md)
+      height 40px
+    img
+      height 100%
 </style>
