@@ -35,6 +35,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+definePageMeta({
+  layout: 'member'
+})
+
 const rememberMe = ref(true)
 </script>
 
