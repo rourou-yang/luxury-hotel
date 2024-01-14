@@ -43,47 +43,6 @@ const rememberMe = ref(true)
 </script>
 
 <style scoped lang="stylus">
-.member-layout
-  background $bg-color
-  min-height 100vh
-  +over(md)
-    display flex
-    .pic-palace, .interface
-      flex 0 0 50%
-  .pic-palace
-    width 100%
-    background-image url('assets/images/bg-login.jpg')
-    background-size cover
-    background-position center center
-    background-repeat no-repeat
-    +under(md)
-      display none
-.interface
-  position relative
-  display flex
-  align-items center
-  justify-content center
-  height 100%
-  .img-wave
-    position absolute
-    width 100%
-    height 187px
-    top 72px
-    left 0
-    background-image url('assets/images/member-wave.png')
-    background-size cover
-    background-position center center
-    background-repeat no-repeat
-    +under(md)
-      top 32px
-      // height 54px
-  .member-board
-    color #fff
-  .info-field + .info-field
-    margin-top 16px
-
-.color-primary 
-  color $primary
-
+@import "@/assets/styles/member.styl"
 
 </style>
