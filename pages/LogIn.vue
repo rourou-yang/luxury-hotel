@@ -6,7 +6,7 @@
       <div class="member-board">
         <div class="font-title color-primary">享樂酒店，誠摯歡迎</div>
         <h1 class="bold mt-2">立即開始旅程</h1>
-        <div class="my-5">
+        <div class="my-10">
           <div class="info-field">
             <div class="font-title mb-2">電子信箱</div>
             <v-text-field variant="solo" hide-details />
@@ -25,7 +25,7 @@
         </v-btn>
         <div class="mt-10 font-body">
           <span>沒有會員嗎？</span>
-          <nuxt-link to="" class="color-primary text-decoration-underline ml-2">前往註冊</nuxt-link>
+          <nuxt-link :to="{name: 'signup'}" class="color-primary text-decoration-underline ml-2">前往註冊</nuxt-link>
         </div>
       </div>
     </div>
