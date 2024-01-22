@@ -239,11 +239,9 @@ const fakedata = {
 }
 const submit = async function() {
   const { valid } = await validate()
-  // const valid = true
   if (valid) {
     const { data, error, status } = await useFetch('https://freyja-1jf2.onrender.com/api/v1/user/signup', 
       { method: 'POST',
-        // body: { ...fakedata },
         body: { ...params.value },
     })
     console.log(data, error, status)
