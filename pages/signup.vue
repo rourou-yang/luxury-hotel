@@ -156,7 +156,7 @@ definePageMeta({
 const { $swal } = useNuxtApp()
 const router = useRouter()
 
-const currentStep = ref(2)
+const currentStep = ref(1)
 const table = ref()
 const form = ref({
   name: '',
