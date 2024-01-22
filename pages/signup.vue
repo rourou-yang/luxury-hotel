@@ -9,11 +9,14 @@
 
         <div class="steps">
           <div class="step flash">
-            <div class="circle">1</div>
+            <div class="circle">
+              <span v-if="currentStep === 1">1</span>
+              <v-icon v-else icon="mdi-check"></v-icon>
+            </div>
             <div class="font-title">輸入信箱及密碼</div>
           </div>
           <div class="divider" />
-          <div class="step">
+          <div class="step" :class="{flash: currentStep === 2}">
             <div class="circle">2</div>
             <div class="font-title">填寫基本資料</div>
           </div>
@@ -153,7 +156,7 @@ definePageMeta({
 const { $swal } = useNuxtApp()
 const router = useRouter()
 
-const currentStep = ref(1)
+const currentStep = ref(2)
 const table = ref()
 const form = ref({
   name: '',
