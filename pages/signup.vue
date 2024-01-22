@@ -35,7 +35,7 @@
                 <div class="font-title mb-2">密碼</div>
                 <v-text-field 
                   v-model="form.password" 
-                  :rules="rules.required" 
+                  :rules="rules.password" 
                   type="password" 
                   variant="solo" 
                   placeholder="請輸入密碼" 
@@ -115,10 +115,15 @@
                     ></v-select>
                   </v-col>
                 </v-row>
-                <v-text-field variant="solo" placeholder="請輸入詳細地址" hide-details="auto" />
+                <v-text-field 
+                  v-model="detailAddress"
+                  :rules="rules.required" 
+                  placeholder="請輸入詳細地址" 
+                  variant="solo"
+                  hide-details="auto" />
               </div>
               <div class="info-field">
-                <v-checkbox label="我已閱讀並同意本網站個資使用規範" color="#fff" />
+                <v-checkbox :rules="rules.required" label="我已閱讀並同意本網站個資使用規範" color="#fff" />
               </div>
             </div>
             <v-btn color="#BF9D7D" block size="x-large" @click="submit">
@@ -146,24 +151,27 @@ definePageMeta({
 })
 
 const { $swal } = useNuxtApp()
+const router = useRouter()
 
-const currentStep = ref(2)
+const currentStep = ref(1)
 const table = ref()
-const form = ref<ISignupForm>({
+const form = ref({
   name: '',
   email: '',
   password: '',
   phone: '',
   birthday: '',
-  address: {
-    zipcode: null,
-    detail: '',
-  },
 })
-const passwordConfirm = ref()
-const selectedCity = ref<string>('')
-const selectedArea = ref<object>({})
+const passwordConfirm = ref<string>('')
 
+// 住址
+const selectedCity = ref<string>('')
+const selectedArea = ref<{
+  AreaEngName: string
+  AreaName: string
+  ZipCode: string
+} | null>(null)
+const detailAddress = ref<string>('')
 const cityOptions = computed(() => {
   return CityCountyData.map(item => item.CityName)
 })
@@ -174,16 +182,36 @@ const areaOptions = computed(() => {
   })?.AreaList
 })
 
+watch(selectedCity, (now, past) => {
+  if (now !== past && areaOptions.value?.length) selectedArea.value = areaOptions.value[0]
+})
+
+
 const rules = reactive({
   required: [ (v:string) => !!v || '必填' ],
   email: [
     (v:string) => !!v || '必填',
     (v: string) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i.test(v) || '信箱格式不正確'
   ],
+  password: [
+    (v:string) => !!v || '必填',
+    (v:string) => v.length >= 8 || '密碼需至少 8 碼以上',
+    (v:string) => /^(?=.*[a-zA-Z])(?=.*\d).+$/.test(v) || '密碼需包含英文及數字',
+  ],
   passwordConfirm: [
     (v:string) => !!v || '必填',
     (v: string) => (v === form.value.password) || '密碼不一致',
   ]
+})
+
+const params = computed(():ISignupForm => {
+  return {
+    ...form.value,
+    address: {
+      zipcode: selectedArea.value ? +selectedArea.value.ZipCode : null,
+      detail: detailAddress.value
+    }
+  }
 })
 
 const next = async function() {
@@ -194,10 +222,47 @@ const next = async function() {
     showError()
   }
 }
+const backAndReset = function() {
+  currentStep.value = 1
+  form.value.email = ''
+}
+const fakedata = {
+  name: 'qoo',
+  email: 'innd@kff.com',
+  password: 'w12233322',
+  phone: '0989922092',
+  birthday: '19980202',
+  address: {
+    zipcode: 100,
+    detail: 'none'
+  }
+}
 const submit = async function() {
   const { valid } = await validate()
+  // const valid = true
   if (valid) {
-    // 
+    const { data, error, status } = await useFetch('https://freyja-1jf2.onrender.com/api/v1/user/signup', 
+      { method: 'POST',
+        // body: { ...fakedata },
+        body: { ...params.value },
+    })
+    console.log(data, error, status)
+    if (data.value && data.value.status) {
+      // success
+      // to do: save data.value.token  data.value.result
+      await $swal.fire({
+        title: '註冊成功',
+        icon: 'success',
+      })
+      router.push({name: 'login'})
+    } else {
+      // failed
+      await $swal.fire({
+        title: error?.value.data.message,
+        icon: 'error',
+      })
+      backAndReset()
+    }
   } else {
     showError()
   }
