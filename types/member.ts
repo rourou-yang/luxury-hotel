@@ -9,3 +9,8 @@ export interface ISignupForm {
     detail: string,
   },
 }
+
+export interface ILoginForm {
+  email: string,
+  password: string,
+}
