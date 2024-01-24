@@ -32,7 +32,7 @@
                   :rules="rules.email" 
                   variant="solo" 
                   placeholder="hello@example.com" 
-                  required hide-details="auto" />
+                  hide-details="auto" />
               </div>
               <div class="info-field">
                 <div class="font-title mb-2">密碼</div>
@@ -145,7 +145,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import type { ISignupForm } from '~/types/member'
 import CityCountyData from '~/public/cityCountyData.json'
 
@@ -229,17 +229,7 @@ const backAndReset = function() {
   currentStep.value = 1
   form.value.email = ''
 }
-const fakedata = {
-  name: 'qoo',
-  email: 'innd@kff.com',
-  password: 'w12233322',
-  phone: '0989922092',
-  birthday: '19980202',
-  address: {
-    zipcode: 100,
-    detail: 'none'
-  }
-}
+
 const submit = async function() {
   const { valid } = await validate()
   if (valid) {
@@ -247,10 +237,8 @@ const submit = async function() {
       { method: 'POST',
         body: { ...params.value },
     })
-    console.log(data, error, status)
     if (data.value && data.value.status) {
       // success
-      // to do: save data.value.token  data.value.result
       await $swal.fire({
         title: '註冊成功',
         icon: 'success',
