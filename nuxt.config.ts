@@ -17,6 +17,7 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
+    '@pinia/nuxt'
   ],
   vite: {
     vue: {
@@ -44,4 +45,9 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
+  pinia: {   
+    autoImports: [  // 想要各別引入可以移除這段
+      'defineStore'
+    ]
+  }
 })
