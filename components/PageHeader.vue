@@ -8,9 +8,23 @@
         <v-btn variant="text" color="#BF9D7D" size="large">
           <nuxt-link  class="nav-link">客房旅宿</nuxt-link>
         </v-btn>
-        <v-btn variant="text" color="#BF9D7D" size="large">
+
+        <v-btn v-if="store.isLogin" variant="text" color="#BF9D7D" size="large">
+          <span style="color: #fff;">
+            <v-icon icon="mdi-account-circle-outline" class="mr-2" />Winnie
+          </span>
+          <v-menu activator="parent">
+            <v-list>
+              <v-list-item @click="logout">
+                <v-list-item-title>登出</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-btn>
+        <v-btn v-else variant="text" color="#BF9D7D" size="large">
           <nuxt-link :to="{name: 'login'}" class="nav-link">會員登入</nuxt-link>
         </v-btn>
+
         <v-btn color="#BF9D7D" size="large">
           <nuxt-link  class="nav-link">立即訂房</nuxt-link>
         </v-btn>
@@ -19,7 +33,15 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useMainStore } from '@/store/index'
+const store = useMainStore()
+
+const logout = function() {
+  store.logout()
+}
+
+</script>
 
 <style scoped lang="stylus">
 header
