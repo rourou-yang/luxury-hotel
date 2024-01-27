@@ -52,6 +52,7 @@ definePageMeta({
 
 const { $swal } = useNuxtApp()
 const router = useRouter()
+const token = useCookie('token')
 
 const table = ref()
 const form = ref({
@@ -89,14 +90,15 @@ const login = async function() {
     const { data, error } = await useFetch('https://freyja-1jf2.onrender.com/api/v1/user/login', 
       { method: 'POST',
         body: { ...form.value },
-    })
+      })
     if (data.value && data.value.status){
+      token.value = data.value.token
       // success
       await $swal.fire({
         title: '登入成功',
         icon: 'success',
       })
-      router.push({name: 'login'})
+      router.push('/')
     } else if (error.value){
       const { data } = error.value
       // failed
