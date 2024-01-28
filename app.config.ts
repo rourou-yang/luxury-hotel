@@ -12,4 +12,8 @@ export default {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap', crossorigin: 'anonymous' },
     ]
   },
+  // 部署 github-pages 的配置
+  // https://clairechang.tw/2023/10/03/nuxt3/nuxt-v3-static-site-generation/
+  baseURL: process.env.NODE_ENV === 'production' ? '/luxury-hotel/' : '/',
+  buildAssetsDir: '/static/'
 }
