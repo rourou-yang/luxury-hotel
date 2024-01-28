@@ -5,13 +5,13 @@
         <img src="~/assets/images/logo.svg" alt="享樂酒店">
       </nuxt-link>
       <nav>
-        <v-btn variant="text" color="#BF9D7D" size="large">
+        <!-- <v-btn variant="text" color="#BF9D7D" size="large">
           <nuxt-link  class="nav-link">客房旅宿</nuxt-link>
-        </v-btn>
+        </v-btn> -->
 
         <v-btn v-if="store.isLogin" variant="text" color="#BF9D7D" size="large">
           <span style="color: #fff;">
-            <v-icon icon="mdi-account-circle-outline" class="mr-2" />Winnie
+            <v-icon icon="mdi-account-circle-outline" class="mr-2" />user
           </span>
           <v-menu activator="parent">
             <v-list>

@@ -155,6 +155,7 @@ definePageMeta({
 
 const { $swal } = useNuxtApp()
 const router = useRouter()
+const token = useCookie('token')
 
 const currentStep = ref(1)
 const table = ref()
@@ -239,11 +240,12 @@ const submit = async function() {
     })
     if (data.value && data.value.status) {
       // success
+      token.value = data.value.token
       await $swal.fire({
         title: '註冊成功',
         icon: 'success',
       })
-      router.push({name: 'login'})
+      router.push('/')
     } else {
       // failed
       await $swal.fire({
