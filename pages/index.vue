@@ -95,7 +95,7 @@
   .topic
     color #fff
     +over(md)
-      font-size 100px
+      font-size 5vw
       letter-spacing 5px
   .slogan
     color $black-40
