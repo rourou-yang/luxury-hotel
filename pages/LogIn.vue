@@ -45,6 +45,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
+import type { ILoginForm } from '~/types/member'
 
 definePageMeta({
   layout: 'member'
@@ -55,11 +56,11 @@ const router = useRouter()
 const token = useCookie('token')
 
 const table = ref()
-const form = ref({
+const form = ref<ILoginForm>({
   email: '',
   password: '',
 })
-const rememberMe = ref(true)
+const rememberMe = ref<boolean>(true)
 
 const rules = reactive({
   email: [
@@ -92,8 +93,13 @@ const login = async function() {
         body: { ...form.value },
       })
     if (data.value && data.value.status){
-      token.value = data.value.token
       // success
+      token.value = data.value.token
+      if (rememberMe.value) {
+        localStorage.setItem('hotelEmail', form.value.email)
+      } else {
+        localStorage.removeItem('hotelEmail')
+      }
       await $swal.fire({
         title: '登入成功',
         icon: 'success',
@@ -111,6 +117,9 @@ const login = async function() {
     showError()
   }
 }
+
+const savedEmail = localStorage.getItem('hotelEmail')
+if (savedEmail) form.value.email = savedEmail
 
 </script>
 
