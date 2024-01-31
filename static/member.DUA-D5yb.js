@@ -1,0 +1,1 @@
+import{a as t}from"./PageHeader.0ZyEgMHt.js";import{_ as r,c as n,b as a,as as c,o as s}from"./entry.JjGpzShI.js";import"./nuxt-link.LS28sDWo.js";import"./index.yT0FPK_q.js";import"./VMenu.2aUWzJ9E.js";const _={};function m(e,p){const o=t;return s(),n("div",null,[a(o),c(e.$slots,"default")])}const x=r(_,[["render",m]]);export{x as default};
