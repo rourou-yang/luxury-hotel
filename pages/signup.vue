@@ -157,7 +157,7 @@ const { $swal } = useNuxtApp()
 const router = useRouter()
 const token = useCookie('token')
 
-const currentStep = ref(1)
+const currentStep = ref<number>(1)
 const table = ref()
 const form = ref({
   name: '',
