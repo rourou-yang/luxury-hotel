@@ -26,7 +26,7 @@
         </v-btn>
 
         <v-btn color="#BF9D7D" size="large">
-          <nuxt-link  class="nav-link">立即訂房</nuxt-link>
+          <nuxt-link :to="{name: 'list'}" class="nav-link">立即訂房</nuxt-link>
         </v-btn>
       </nav>
     </header>
